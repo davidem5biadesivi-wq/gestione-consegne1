@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestione Consegne Produzione</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #eee;
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body onload="mostraPopup()">
+    <h1>Gestione Consegne Materiali</h1>
+    <button onclick="mostraPopup()">Mostra Promemoria</button>
+    <table id="consegneTable">
+        <thead>
+            <tr>
+                <th>Materiale</th>
+                <th>Data di consegna prevista</th>
+                <th>Note</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <h2>Aggiungi Nuova Consegna</h2>
+    <form id="consegnaForm">
+        <label>Materiale:</label><br>
+        <input type="text" id="materiale" required><br><br>
+        <label>Data di consegna prevista:</label><br>
+        <input type="date" id="data" required><br><br>
+        <label>Note:</label><br>
+        <input type="text" id="note"><br><br>
+        <button type="submit">Aggiungi</button>
+    </form>
+
+    <script>
+        function mostraPopup() {
+            alert("Consegnare data");
+        }
+
+        document.getElementById("consegnaForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const materiale = document.getElementById("materiale").value;
+            const data = document.getElementById("data").value;
+            const note = document.getElementById("note").value;
+
+            const table = document.getElementById("consegneTable").getElementsByTagName("tbody")[0];
+            const newRow = table.insertRow();
+
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+
+            cell1.innerHTML = `<input type="text" value="${materiale}">`;
+            cell2.innerHTML = `<input type="date" value="${data}">`;
+            cell3.innerHTML = `<input type="text" value="${note}">`;
+            cell4.innerHTML = `<button onclick="rimuoviRiga(this)">Rimuovi</button>`;
+
+            document.getElementById("consegnaForm").reset();
+        });
+
+        function rimuoviRiga(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+</body>
+</html>
